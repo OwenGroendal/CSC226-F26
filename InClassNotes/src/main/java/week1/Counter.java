@@ -4,6 +4,8 @@ public class Counter {
 
    private int count;
 
+   private int[] counterRecord = new int[5];
+
    public Counter() {
         count = 0;
    }
@@ -31,19 +33,13 @@ public class Counter {
         recordCount();
    }
 
-   public static void recordCount() {
+   private void recordCount() {
 
-        int[] counterRecord = new int[5];
-
-        for(int i = 0; i < 5; i++) {
-
-              counterRecord[i] = 
-
+        for(int i = 0; i < 4; i++) {
+               counterRecord[i] = counterRecord[i + 1];
+               counterRecord[4] = count;
         }
 
    }
     
-
-
-    //9. Add a fixed-size history array that records the last 5 states of the counter. All logic must happen inside of the object and be hidden from the user.
 }//end of main class
