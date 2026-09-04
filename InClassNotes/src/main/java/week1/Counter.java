@@ -2,20 +2,48 @@ package week1;
 
 public class Counter {
 
-    // 2. Add a private field
-    // TODO: Declare private int count;
+   private int count;
 
-    // 3. Write the default constructor
+   public Counter() {
+        count = 0;
+   }
 
-    // 4. Add an alternate constructor
+   public Counter(int count) {
+        this.count = count;
+   }
 
-    // 5. Write an accessor method
+   public int getCount() {
+        return this.count;
+   }
 
-    // 6. Add an update method
+   public void increment() {
+        count = count + 1;
+        recordCount();
+   }
+
+   public void increment(int delta) {
+        count = count + delta;
+        recordCount();
+   }
+
+   public void reset() {
+        count = 0;
+        recordCount();
+   }
+
+   public static void recordCount() {
+
+        int[] counterRecord = new int[5];
+
+        for(int i = 0; i < 5; i++) {
+
+              counterRecord[i] = 
+
+        }
+
+   }
     
-    // 7. Overload increment
-   
-    // 8. Add a reset method
+
 
     //9. Add a fixed-size history array that records the last 5 states of the counter. All logic must happen inside of the object and be hidden from the user.
-}
+}//end of main class
