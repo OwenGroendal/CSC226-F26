@@ -17,15 +17,32 @@ public class Main {
          while (fileReader.hasNextLine()) {
             String line = fileReader.nextLine();
             String[] parts = line.split(",");
+            
+            String patientID = parts[0];
+            String fullName = parts[1];
+            int age = Integer.parseInt(parts[2]);
+            String chiefComplaint = parts[3];
+            int triageLevel = Integer.parseInt(parts[4]);
+            String currentStage = parts[5];
+            String assignedRoom = parts[6];
+            int arrivalHour = Integer.parseInt(parts[7]);
+            String insuranceID = parts[8];
 
-            // TODO REQUIRED: Parse the fields from parts.
-            // TODO REQUIRED: Split the full name into firstName and lastName.
-            // TODO REQUIRED: Create a Patient and add it to patients.
+            String[] nameParts = fullName.split(" ");
+            String firstName = nameParts[0];
+            String lastName = nameParts[1];
+
+            Patient patient = new Patient(patientID, firstName, lastName, age, 
+                                          chiefComplaint, triageLevel, 
+                                          currentStage, assignedRoom, 
+                                          arrivalHour, insuranceID);
+         patients.addPatient(patient);
          }
 
-         // TODO REQUIRED: Display the completed registry.
+         System.out.println(patients);
+
       } catch (FileNotFoundException exception) {
-         // TODO REQUIRED: Report a missing input file.
+         System.out.println("File not found: " + filePath);
       }
    }
 }
