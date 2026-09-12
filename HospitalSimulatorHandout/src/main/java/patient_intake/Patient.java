@@ -109,6 +109,14 @@ public class Patient extends Person {
 
     @Override
     public String toString() {
-        return firstName + " " + lastName; 
+        return "Patient ID: " + patientID + 
+               " Patient Name: " + firstName + " " + lastName + 
+               " Age: " + age + 
+               " Chief Complaint: " + chiefComplaint + 
+               " Triage Level: " + triageLevel + 
+               " Current Stage: " + currentStage + 
+               " Assigned Room: " + assignedRoom + 
+               " Arrival Hour: " + arrivalHour + 
+               " Insurance ID: " + insuranceID;
     }
 }

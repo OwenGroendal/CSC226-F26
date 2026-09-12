@@ -98,14 +98,11 @@ public class PatientRegistry {
     
     @Override
     public String toString() {
-
-        String answer = "";
-
-         for(int i = 0; i < size; i++) {
-            answer = answer + patientRegistry[i] + "\n";
-         }
-
-         return answer;
+        String answer = "PatientRegistry: size = " + size + "\n";
+        for(int i = 0; i < size; i ++) {
+            answer = answer + patientRegistry[i].toString() + "\n";
+        }
+        return answer;
     }
 
 }
