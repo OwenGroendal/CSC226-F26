@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import patient_intake.Patient;
 
-public class StudentTestsAlgorithms {
+public class StudentAlgorithmTests {
 
     private Patient[] buildSortedPatients() {
         Patient[] patients = new Patient[6];
