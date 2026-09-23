@@ -4,11 +4,30 @@ import java.util.ArrayList;
 
 public class LinkedListExamples {
     public static void main(String[] args){
-        // Create a sample linked list for testing
+        LinkedStack<String> stack = new LinkedStack<>();
         LLNode<String> head = new LLNode<>("First");
         head.setNext(new LLNode<>("Second"));
         head.getNext().setNext(new LLNode<>("Third"));
         head.getNext().getNext().setNext(new LLNode<>("Fourth"));
+
+        stack.push("First");
+        stack.push("Second");
+        stack.push("Third");
+        stack.push("Fourth");
+        stack.push("Fifth");
+        stack.push("Sixth");
+        System.out.println("Is Full: " + stack.isFull());
+        System.out.println("The top value: " + stack.top());
+        stack.pop();
+        stack.pop();
+        stack.pop();
+        stack.pop();
+        System.out.println("The top value after 4 pops: " + stack.top());
+        System.out.println("Is Empty: " + stack.isEmpty());
+        stack.pop();
+        stack.pop();
+        System.out.println("Is Empty after 2 more pops: " + stack.isEmpty());
+        
         
         // Test your functions here
     }
