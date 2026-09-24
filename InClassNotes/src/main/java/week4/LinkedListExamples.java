@@ -27,69 +27,107 @@ public class LinkedListExamples {
         stack.pop();
         stack.pop();
         System.out.println("Is Empty after 2 more pops: " + stack.isEmpty());
-        
-        
-        // Test your functions here
+
+        System.out.println("Original order: ");
+        displayWithPositions(head);
+        LLNode<String> newList = removeElement(head, "Second");
+        System.out.println("After removing 'Second': ");
+        displayWithPositions(newList);
+        LLNode<String> newHead = removeAllElements(head);
+        System.out.println("After removing all elements: ");
+        displayWithPositions(newHead);
+        LLNode<String> copyHead = copyList(head);
+        System.out.println("After copying list: ");
+        displayWithPositions(copyHead);
+        boolean answer = contains(head, "Fourth");
+        System.out.println("Finding target 'Fourth': " + answer);
+        int length = getLength(head);
+        System.out.println("Length of linked list: " + length);
+            
     }
     
-    
-    /**
-     * 2. Program to display both elements and their position in a linked list
-     * Shows: Position 0: "First", Position 1: "Second", etc.
-     */
     public static <T> void displayWithPositions(LLNode<T> head) {
-        // TODO: Implement this function
-        // hint: Use a counter variable and traverse the list    
+        int position = 0;
+        LLNode<T> current = head;
+
+        while(current != null) {
+            System.out.println("Position " + position + ": " + current.getInfo());
+            current = current.getNext();
+            position++;
+        }
+        
     }
     
-    /**
-     * 3. Program to remove a specified element from a linked list
-     * Returns the new head of the list (important if first element is removed)
-     */
     public static <T> LLNode<T> removeElement(LLNode<T> head, T target) {
-        // TODO: Implement this function
-        // Handle special case: removing the first element
-        // For other elements: find the node before the target
-        return head; // placeholder
+
+        if(head == null) return null;
+
+        if(head.getInfo().equals(target)) return head.getNext();
+
+        LLNode<T> current = head;
+
+        while(current.getNext() != null) {
+
+            if(current.getNext().getInfo().equals(target)) {
+                current.setNext(current.getNext().getNext());
+                return head;
+            }
+            current = current.getNext();
+        }
+        return head; 
     }
     
-    /**
-     * 4. Program to remove all elements from a linked list
-     * Returns null (empty list)
-     */
     public static <T> LLNode<T> removeAllElements(LLNode<T> head) {
-        // TODO: Implement this function
-        // Hint: This is simpler than you might think!
-        return null; // placeholder
+
+        while(head != null) {
+            head = head.getNext();
+        }
+        return head; 
     }
     
-    /**
-     * 5. Program to copy a linked list to another linked list
-     * Creates a completely new list with the same values
-     */
     public static <T> LLNode<T> copyList(LLNode<T> original) {
-        // TODO: Implement this function
-        // Create new nodes for each element in the original list
-        return null; // placeholder
+
+        if(original == null) return null;
+
+        LLNode<T> newList = new LLNode<>(original.getInfo());
+        LLNode<T> currentNew = newList;
+
+        original = original.getNext();
+
+        while(original != null) {
+            currentNew.setNext(new LLNode<>(original.getInfo()));
+            currentNew = currentNew.getNext();
+            original = original.getNext();
+        }
+        return newList; 
     }
     
-    /**
-     * 6. Program to check if a particular element exists in a linked list
-     * Returns true if found, false otherwise
-     */
     public static <T> boolean contains(LLNode<T> head, T target) {
-        // TODO: Implement this function
-        // Traverse the list and compare each element with target
-        return false; // placeholder
+
+        if(head == null) return false;
+
+        if(head.getInfo().equals(target)) return true;
+
+        head = head.getNext();
+
+        while(head != null) {
+            if(head.getInfo().equals(target)) return true;
+            head = head.getNext();
+        }
+        
+        return false; 
     }
     
-    /**
-     * Helper function to calculate the length of a linked list
-     * Useful for other operations
-     */
     public static <T> int getLength(LLNode<T> head) {
-        // TODO: Implement this helper function
-        return 0; // placeholder
+
+        int length = 0;
+
+        while(head != null) {
+            length++;
+            head = head.getNext();
+        }
+        
+        return length; 
     }
 
     /**
