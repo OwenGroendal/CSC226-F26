@@ -30,19 +30,33 @@ public class LinkedListExamples {
 
         System.out.println("Original order: ");
         displayWithPositions(head);
+
         LLNode<String> newList = removeElement(head, "Second");
         System.out.println("After removing 'Second': ");
         displayWithPositions(newList);
+
         LLNode<String> newHead = removeAllElements(head);
         System.out.println("After removing all elements: ");
         displayWithPositions(newHead);
+
         LLNode<String> copyHead = copyList(head);
         System.out.println("After copying list: ");
         displayWithPositions(copyHead);
+
         boolean answer = contains(head, "Fourth");
         System.out.println("Finding target 'Fourth': " + answer);
+
         int length = getLength(head);
         System.out.println("Length of linked list: " + length);
+
+        ArrayList<String> convertedList = toArrayList(head);
+        System.out.println("Converts to array list: ");
+        for(int i = 0; i < convertedList.size(); i++) {
+            System.out.println(convertedList.get(i));
+        }
+
+        String valueElement = getElementAt(head, 2);
+        System.out.println("Get element at position 2: " + valueElement);
             
     }
     
@@ -130,22 +144,30 @@ public class LinkedListExamples {
         return length; 
     }
 
-    /**
-     * 7. Program to convert a linked list to an array list
-     * Returns an ArrayList containing all elements in the same order
-     */
     public static <T> ArrayList<T> toArrayList(LLNode<T> head) {
-        // TODO: Implement this function
-        // Create ArrayList and add each element from the linked list
-        return new ArrayList<>(); // placeholder
+
+        if(head == null) return new ArrayList<T>();
+
+        ArrayList<T> convertedList = new ArrayList<T>();
+
+        while(head != null) {
+            convertedList.add(head.getInfo());
+            head = head.getNext();
+        }
+        return convertedList;
     }
         
-    /**
-     * Helper function to get the element at a specific position
-     * Returns null if position is out of bounds
-     */
     public static <T> T getElementAt(LLNode<T> head, int position) {
-        // TODO: Implement this helper function
-        return null; // placeholder
+
+        if(head == null) return null;
+
+        int counter = 0;
+
+        while(head != null) {
+            if(counter == position) return head.getInfo();
+            head = head.getNext();
+            counter++;
+        }
+        return null; 
     }
 }
