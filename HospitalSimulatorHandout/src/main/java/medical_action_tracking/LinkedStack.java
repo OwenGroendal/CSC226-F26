@@ -14,32 +14,57 @@ public class LinkedStack<T> {
     private int size;
 
     public void push(T item) {
-        // TODO: Reject null items, then link a new node at the top and update size.
+        if(item == null) {
+            System.out.println("Rejected, can not add null");
+            return;
+        } 
+
+        Node newNode = new Node(item);
+        newNode.next = top;
+        top = newNode;
+        size++;
     }
 
     public T pop() {
-        // TODO: Remove and return the top item, or return null when empty.
+        if(!isEmpty()) {
+            T value = top.data;
+            top = top.next;
+            size--;
+            return value;
+        }
         return null;
     }
 
     public T peek() {
-        // TODO: Return the top item without removing it, or null when empty.
+        if(!isEmpty()) return top.data;
         return null;
     }
 
     public boolean isEmpty() {
-        // TODO: Determine whether the stack contains any items.
+        if(top == null) return true;
         return false;
     }
 
     public int size() {
-        // TODO: Return the number of stacked items.
-        return 0;
+        return size;
     }
 
     @Override
     public String toString() {
-        // TODO: Build [top, next, ...] by traversing the stack without changing it.
-        return "[]";
+
+        String list = "[";
+        Node current = top;
+        
+        while(current != null) {
+            list = list + current.data;
+
+            if(current.next != null) {
+                list = list + ", ";
+            }
+            current = current.next;
+        }
+
+        list = list + "]";
+        return list;
     }
 }
