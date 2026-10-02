@@ -1,23 +1,35 @@
 package week5;
 
+import java.util.Arrays;
+
 public class ArrayUnboundedQueue<T> implements QueueInterface<T> {
+
+    T[] list = (T[]) new Object[15];
+    int numElements = 0;
+
     @Override
     public void enqueue(T element) {
-        throw new UnsupportedOperationException("Not implemented");
+       if(numElements == list.length) {
+            list = Arrays.copyOf(list, list.length * 2);
+       }
+
+       list[numElements] = element;
+       numElements++;
+
     }
 
     @Override
     public T dequeue() {
-        throw new UnsupportedOperationException("Not implemented");
+        
     }
 
     @Override
     public boolean isFull() {
-        throw new UnsupportedOperationException("Not implemented");
+       return false;
     }
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not implemented");
-    }
+        if(numElements == 0) return true;
+        return false;
 }
