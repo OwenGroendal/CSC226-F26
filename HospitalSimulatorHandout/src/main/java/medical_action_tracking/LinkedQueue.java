@@ -15,32 +15,54 @@ public class LinkedQueue<T> {
     private int size;
 
     public LinkedQueue() {
-        // TODO: Initialize an empty queue.
+        front = null;
+        rear = null;
+        size = 0;
     }
 
     public void enqueue(T item) {
-        // TODO: Add a node at the rear. Update both references when the queue is empty.
+        Node newNode = new Node(item);
+        if(size == 0) {
+            front = newNode;
+            rear = newNode;
+        }
+
+        else {
+            rear.next = newNode;
+            rear = newNode;
+        }
+        size++;
     }
 
     public T dequeue() {
+        if(isEmpty()) return null;
+
+        T value = front.data;
+        front = front.next;
+        size--;
+
+        if(size == 0) {
+            front = null;
+            rear = null;
+        }
+
+        return value;
         // TODO: Remove and return the front item, or return null if empty.
         // TODO: When removing the last item, make both front and rear null.
-        return null;
     }
 
     public T peekFront() {
-        // TODO: Return the front item without removing it, or null if empty.
-        return null;
+        if(isEmpty()) return null;
+        return front.data;
     }
 
     public boolean isEmpty() {
-        // TODO: Determine whether the queue contains any items.
+        if(size == 0) return true;
         return false;
     }
 
     public int size() {
-        // TODO: Return the number of queued items.
-        return 0;
+        return size;
     }
 
     @Override
