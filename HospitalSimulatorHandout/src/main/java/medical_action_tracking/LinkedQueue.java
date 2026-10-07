@@ -45,10 +45,7 @@ public class LinkedQueue<T> {
             front = null;
             rear = null;
         }
-
         return value;
-        // TODO: Remove and return the front item, or return null if empty.
-        // TODO: When removing the last item, make both front and rear null.
     }
 
     public T peekFront() {
@@ -67,12 +64,31 @@ public class LinkedQueue<T> {
 
     @Override
     public String toString() {
-        // TODO: Recursively build a string from front to rear without changing the queue.
-        return "[]";
+        StringBuilder value = new StringBuilder("[");
+        appendNodesRecursively(front, value);
+        value.append("]");
+        return value.toString();
     }
 
     private void appendNodesRecursively(Node current, StringBuilder result) {
-        // TODO: Add the current node's data, then recursively visit current.next.
-        // TODO: Stop at the null-node base case.
+
+        if(current == null) return;
+
+        result.append(current.data);
+
+        if(current.next != null) result.append(", ");
+
+        appendNodesRecursively(current.next, result);
+    }
+
+    //Need to call this function in test because front is private, this starts the recursion
+    //Will compare result with size() in test
+    private int countNodesRecursively() {
+         return countNodesRecursively(front);
+    }
+
+    private int countNodesRecursively(Node current) {
+        if(current == null) return 0;
+        return 1 + countNodesRecursively(current.next);
     }
 }
