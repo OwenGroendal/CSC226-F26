@@ -25,6 +25,6 @@ public class TreatmentRecord {
 
     @Override
     public String toString() {
-        return "Timestamp: " + timestamp + " patientID: " + patientID + " treatmentName: " + treatmentName;
+        return timestamp + " | " + patientID + " | " + treatmentName;
     }
 }

@@ -21,6 +21,9 @@ public class LinkedQueue<T> {
     }
 
     public void enqueue(T item) {
+
+        if(item == null) throw new IllegalArgumentException("Invalid argument");
+
         Node newNode = new Node(item);
         if(size == 0) {
             front = newNode;
@@ -70,7 +73,7 @@ public class LinkedQueue<T> {
         return value.toString();
     }
 
-    private void appendNodesRecursively(Node current, StringBuilder result) {
+    public void appendNodesRecursively(Node current, StringBuilder result) {
 
         if(current == null) return;
 
@@ -81,13 +84,14 @@ public class LinkedQueue<T> {
         appendNodesRecursively(current.next, result);
     }
 
+    //OPTIONAL
     //Need to call this function in test because front is private, this starts the recursion
-    //Will compare result with size() in test
-    private int countNodesRecursively() {
+    //Will compare result with size() in studentTest.java
+    public int countNodesRecursively() {
          return countNodesRecursively(front);
     }
 
-    private int countNodesRecursively(Node current) {
+    public int countNodesRecursively(Node current) {
         if(current == null) return 0;
         return 1 + countNodesRecursively(current.next);
     }

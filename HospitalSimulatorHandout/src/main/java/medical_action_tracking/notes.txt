@@ -1,0 +1,28 @@
+           Operation              | Complexity | Explanation
+----------------------------------|------------|---------------------------------------------------
+Queue enqueue/dequeue             |Bounded O(1)| Every time you dequeue or enqueue an element, it 
+                                  |            | is the same amount of steps everytime. For enqueue,
+                                  |            | you add the element to the end of the queue, and
+                                  |            | move the rear. For dequeue, you remove the front 
+                                  |            | element, and then move the front to the next node.
+                                  |            | No matter the size, it's always the same
+                                  |            | number of steps, so bounded.
+                                  |            |
+EmergencyWaitingRoom.nextPatient()|Bounded O(1)| For this function, there are only at most 4 levels 
+                                  |            | you need to check (1, 2, 3, and 4). It doesn't                     
+                                  |            | matter if there are 10 patients, or 1000 patients
+                                  |            | it is the same amount of steps no matter the size.
+                                  |            |       
+Stack push/pop/peek               |Bounded O(1)| For all push, pop, and peek, it is the same 
+                                  |            | steps every time for doing an action, it does
+                                  |            | not matter the size of the stack. For push, you
+                                  |            | add an object to the top of stack and update the
+                                  |            | node. For pop, you remove the top item and get
+                                  |            | rid of the node. For peek, you simply look at
+                                  |            | the top of the stack and get the value. same
+                                  |            | steps every time.          
+                                  |            |
+Recursive queue toString()        |Linear O(n) | Every time an element is added to the queue,
+                                  |            | this toString() requires an extra step. So,
+                                  |            | the complexity is linear, as the size grows,
+                                  |            | the complexity rises equally.                

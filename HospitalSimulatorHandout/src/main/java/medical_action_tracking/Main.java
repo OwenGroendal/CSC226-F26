@@ -30,6 +30,38 @@ public class Main {
                     + " (triage level " + nextPatient.getTriageLevel() + ")");
         }
 
+        //OPTIONAL
+        //Simulated patient arrival and service times
+
+        int[] arrivalMinute = {1, 4, 6};
+        int[] serviceDuration = {4, 2, 5};
+
+        int clock = 0;
+        int totalWaitingTime = 0;
+        int servedPatients = 0;
+
+        for(int i = 0; i < patients.length; i++) {
+
+            int arrivalTime = arrivalMinute[i];
+            int serviceTime = serviceDuration[i];
+
+            int serviceStart = Math.max(clock, arrivalTime);
+
+            int waitingTime = serviceStart - arrivalTime;
+
+            System.out.println(patients[i].getPatientID() + " waited " + waitingTime + " minutes.");
+
+            totalWaitingTime = totalWaitingTime + waitingTime;
+            servedPatients++;
+
+            clock = serviceStart + serviceTime;
+
+        }
+
+        double averageWaitingTime = (double) totalWaitingTime / servedPatients;
+
+        System.out.println("Average waiting time: " + averageWaitingTime + " minutes");
+
         TreatmentHistory history = new TreatmentHistory();
         history.addTreatment("P002", "Initial assessment", "2026-09-27 09:00");
         history.addTreatment("P001", "X-ray", "2026-09-27 09:10");

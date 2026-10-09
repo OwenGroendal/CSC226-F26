@@ -14,11 +14,8 @@ public class LinkedStack<T> {
     private int size;
 
     public void push(T item) {
-        if(item == null) {
-            System.out.println("Rejected, can not add null");
-            return;
-        } 
-
+        if(item == null) throw new IllegalArgumentException("Invalid argument");
+        
         Node newNode = new Node(item);
         newNode.next = top;
         top = newNode;
