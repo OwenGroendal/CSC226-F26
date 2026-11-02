@@ -37,7 +37,14 @@ public class StaffMember implements Comparable<StaffMember> {
     // TODO: Order by caseLoad (lowest first), then by staffId to break ties.
     @Override
     public int compareTo(StaffMember other) {
-        return 0;
+
+        int value = Integer.compare(this.getCaseLoad(), other.getCaseLoad());
+
+        if(value == 0) {
+            value = this.getStaffId().compareTo(other.getStaffId());
+        }
+
+        return value;
     }
 
     @Override

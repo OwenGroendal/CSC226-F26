@@ -15,20 +15,48 @@ public class StaffRoster {
 
     // TODO: Add the staff member to the correct tier, and reject a duplicate staffId.
     public void addStaff(StaffMember staff) {
+
+        if(staff == null) throw new IllegalArgumentException("Can't be null");
+
+        if(findById(staff.getStaffId()) != null) {
+            throw new IllegalArgumentException("Can't be repeat staffId");
+        }
+
+        Seniority seniority = staff.getSeniority();
+
+        tiers.putIfAbsent(seniority, new TreeSet<>());
+
+        tiers.get(seniority).add(staff);
+
     }
 
     // TODO: Pick the least-loaded staff member at or above "required", raise their load by 1, and return them.
     public StaffMember assign(Seniority required) {
+
+
         return null;
     }
 
     // TODO: Lower the staff member's load by 1 (never below 0) and keep the tree ordered.
     public void release(StaffMember staff) {
+
+         if(staff.getCaseLoad() == 0) return;
+         changeLoad(staff, staff.getCaseLoad()-1);
+
     }
 
     // TODO: Return how many staff members are in the roster.
     public int size() {
-        return 0;
+
+        int count = 0;
+
+        for(TreeSet<StaffMember> set : tiers.values()) {
+            for(StaffMember member : set) {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     // TODO: Print each tier, most senior first, listing its staff in order.
@@ -51,6 +79,13 @@ public class StaffRoster {
 
     // TODO: Return the staff member with this staffId, or null if they are not in the roster.
     private StaffMember findById(String staffId) {
+
+        for(TreeSet<StaffMember> set : tiers.values()) {
+            for(StaffMember member : set) {
+                if(member.getStaffId().equals(staffId)) return member;
+            }
+        }
+
         return null;
     }
 }
