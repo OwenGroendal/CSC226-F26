@@ -33,7 +33,14 @@ public class StaffRoster {
     // TODO: Pick the least-loaded staff member at or above "required", raise their load by 1, and return them.
     public StaffMember assign(Seniority required) {
 
+        for(TreeSet<StaffMember> set : tiers.tailMap(required).values()) {
 
+            if(!set.isEmpty()) {
+                 StaffMember staff = set.first();
+                 changeLoad(staff, staff.getCaseLoad() + 1);
+                 return staff;   
+        }
+    }
         return null;
     }
 
@@ -61,14 +68,28 @@ public class StaffRoster {
 
     // TODO: Print each tier, most senior first, listing its staff in order.
     public void displayRoster() {
+
+        for(Seniority seniority: tiers.descendingKeySet()) {
+           System.out.println(seniority + ": ");
+
+           for(StaffMember member : tiers.get(seniority)) {
+                System.out.println(" " + member);
+           }
+        }
     }
 
     // TODO: Remove the member, set the new load, then add them back (the only safe way to change a load).
     private void changeLoad(StaffMember member, int newLoad) {
+
+        TreeMap.remove(member);
+
     }
 
     // TODO: Call assign(), record the treatment in history with the chosen staffId, and return that staff member.
     public StaffMember assignTreatment(String patientID, String treatment, String timestamp, Seniority required) {
+
+        assign(required);
+
         return null;
     }
 
