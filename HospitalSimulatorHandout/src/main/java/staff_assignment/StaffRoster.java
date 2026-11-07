@@ -1,5 +1,6 @@
 package staff_assignment;
 
+import java.util.NoSuchElementException;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -30,22 +31,38 @@ public class StaffRoster {
 
     }
 
+    public void displayTreatmentHistory() {
+        history.displayHistoryWithStaff();
+}
+
     // TODO: Pick the least-loaded staff member at or above "required", raise their load by 1, and return them.
     public StaffMember assign(Seniority required) {
+
+        StaffMember leastLoaded = null;
 
         for(TreeSet<StaffMember> set : tiers.tailMap(required).values()) {
 
             if(!set.isEmpty()) {
                  StaffMember staff = set.first();
-                 changeLoad(staff, staff.getCaseLoad() + 1);
-                 return staff;   
+                 
+                 if(leastLoaded == null ||staff.getCaseLoad() < leastLoaded.getCaseLoad()) {
+                    leastLoaded = staff;
+                 }  
         }
     }
-        return null;
+    
+    if(leastLoaded == null) {
+        throw new NoSuchElementException("No eligible staff member found");
+    }
+    changeLoad(leastLoaded, leastLoaded.getCaseLoad() + 1);
+                 return leastLoaded; 
+        
     }
 
     // TODO: Lower the staff member's load by 1 (never below 0) and keep the tree ordered.
     public void release(StaffMember staff) {
+
+        if(staff == null) return;
 
          if(staff.getCaseLoad() == 0) return;
          changeLoad(staff, staff.getCaseLoad()-1);
@@ -79,27 +96,48 @@ public class StaffRoster {
     }
 
     // TODO: Remove the member, set the new load, then add them back (the only safe way to change a load).
-    private void changeLoad(StaffMember member, int newLoad) {
+    public void changeLoad(StaffMember member, int newLoad) {
 
-        TreeMap.remove(member);
+        if(member == null) return;
+
+        TreeSet<StaffMember> set = tiers.get(member.getSeniority());
+
+        if(set == null) return;
+
+        set.remove(member);
+        member.setCaseLoad(newLoad);
+        set.add(member);
 
     }
 
     // TODO: Call assign(), record the treatment in history with the chosen staffId, and return that staff member.
     public StaffMember assignTreatment(String patientID, String treatment, String timestamp, Seniority required) {
 
-        assign(required);
+        StaffMember staff = assign(required);
 
-        return null;
+        if(staff == null) return null;
+
+        history.addTreatment(patientID, treatment, timestamp, staff.getStaffId());
+
+        return staff;
     }
 
     // TODO: Pop the globally most recent treatment with your Week 3 undo, release whoever performed it, and return them (null if none).
     public StaffMember undoLastAssignment() {
-        return null;
+
+        TreatmentRecord value = history.undoLastAction();
+
+        if(value == null) return null;
+
+          StaffMember staff = findById(value.getPerformedBy());
+
+        release(staff);
+
+        return staff;
     }
 
     // TODO: Return the staff member with this staffId, or null if they are not in the roster.
-    private StaffMember findById(String staffId) {
+    public StaffMember findById(String staffId) {
 
         for(TreeSet<StaffMember> set : tiers.values()) {
             for(StaffMember member : set) {

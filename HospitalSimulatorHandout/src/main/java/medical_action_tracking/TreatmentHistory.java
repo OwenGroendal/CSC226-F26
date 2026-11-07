@@ -12,6 +12,11 @@ public class TreatmentHistory {
         allRecords.push(record);
     }
 
+     public void addTreatment(String patientID, String treatment, String timestamp, String performedBy) {
+        TreatmentRecord record = new TreatmentRecord(patientID, treatment, timestamp, performedBy);
+        allRecords.push(record);
+    }
+
     public TreatmentRecord undoLastAction() {
 
         if(allRecords == null) return null;
@@ -23,4 +28,22 @@ public class TreatmentHistory {
         if(allRecords == null) return null;
         return allRecords.toString();
 }
+
+    public void displayHistoryWithStaff() {
+        
+        LinkedStack<TreatmentRecord> temp = new LinkedStack<>();
+
+        while(!allRecords.isEmpty()) {
+            TreatmentRecord record = allRecords.pop();
+
+            System.out.println(record + " | " + record.getPerformedBy());
+
+            temp.push(record);
+    }
+
+    while(!temp.isEmpty()) {
+        allRecords.push(temp.pop());
+    }
+}
+
 }
